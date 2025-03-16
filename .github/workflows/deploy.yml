@@ -21,7 +21,7 @@ jobs:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
 
     - name: Terraform Init
-      run: terrafterraform -chdir=./tf init
+      run: terraform -chdir=./tf init
 
     - name: Terraform Apply
       run: terraform -chdir=./tf apply -auto-approve

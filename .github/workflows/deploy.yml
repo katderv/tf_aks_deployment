@@ -22,7 +22,7 @@ jobs:
 
     - name: Terraform Init
       working-directory: ./tf
-      run: terraform init
+      run: pwd
 
     - name: Terraform Apply
       working-directory: ./tf

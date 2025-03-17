@@ -54,7 +54,9 @@ module "aks" {
   kubernetes_version        = "1.30" 
   log_analytics_workspace_enabled = false
   automatic_channel_upgrade = "patch"
-
+    attached_acr_id_map = {
+    aks-acr = azurerm_container_registry.aks-acr.id
+  }
   network_plugin  = "azure"
   network_policy  = "azure"
   os_disk_size_gb = 60

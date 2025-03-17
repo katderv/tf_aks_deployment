@@ -33,7 +33,22 @@ jobs:
         echo "SUBNET_NAME=$(terraform output -raw subnet_name)" >> $GITHUB_ENV
         echo "ACR_NAME=$(terraform output -raw container_registry_name)" >> $GITHUB_ENV
         echo "AKS_NAME=$(terraform output -raw aks_cluster_name)" >> $GITHUB_ENV
-
+    - name: Store Outputs as Secrets
+      run: |
+        gh secret set RESOURCE_GROUP --body "$(terraform output -raw resource_group_name)"
+        gh secret set VNET_NAME --body "$(terraform output -raw virtual_network_name)"
+        gh secret set SUBNET_NAME --body "$(terraform output -raw subnet_name)"
+        gh secret set ACR_NAME --body "$(terraform output -raw container_registry_name)"
+        gh secret set AKS_NAME --body "$(terraform output -raw aks_cluster_name)"
+  
     - name: Enable Routing Add-on with NGINX
       run: |
         az aks approuting enable --resource-group $RESOURCE_GROUP --name $AKS_NAME
+    
+    - name: Set up kubectl for AKS
+      run: |
+        az aks get-credentials --resource-group $RESOURCE_GROUP --name $AKS_NAME
+
+    - name: Run kubectl command
+      run: |
+        kubectl get pods --namespace default

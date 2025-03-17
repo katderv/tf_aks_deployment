@@ -54,13 +54,31 @@ module "aks" {
   kubernetes_version        = "1.30" 
   log_analytics_workspace_enabled = false
   automatic_channel_upgrade = "patch"
-  attached_acr_id_map = {
-    aks-acr = azurerm_container_registry.aks-acr.id
-  }
+
   network_plugin  = "azure"
   network_policy  = "azure"
   os_disk_size_gb = 60
   sku_tier        = "Free"
   rbac_aad        = false
   vnet_subnet_id  = azurerm_subnet.test.id
+}
+
+output "resource_group_name" {
+  value = local.resource_group.name
+}
+
+output "virtual_network_name" {
+  value = azurerm_virtual_network.test.name
+}
+
+output "subnet_name" {
+  value = azurerm_subnet.test.name
+}
+
+output "container_registry_name" {
+  value = azurerm_container_registry.aks-acr.name
+}
+
+output "aks_cluster_name" {
+  value = module.aks.aks_name
 }

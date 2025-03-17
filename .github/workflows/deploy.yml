@@ -25,3 +25,15 @@ jobs:
 
     - name: Terraform Apply
       run: terraform -chdir=./tf apply -auto-approve
+
+    - name: Capture Terraform Outputs
+      run: |
+        echo "RESOURCE_GROUP=$(terraform output -raw resource_group_name)" >> $GITHUB_ENV
+        echo "VNET_NAME=$(terraform output -raw virtual_network_name)" >> $GITHUB_ENV
+        echo "SUBNET_NAME=$(terraform output -raw subnet_name)" >> $GITHUB_ENV
+        echo "ACR_NAME=$(terraform output -raw container_registry_name)" >> $GITHUB_ENV
+        echo "AKS_NAME=$(terraform output -raw aks_cluster_name)" >> $GITHUB_ENV
+
+    - name: Enable Routing Add-on with NGINX
+      run: |
+        az aks approuting enable --resource-group $RESOURCE_GROUP --name $AKS_NAME

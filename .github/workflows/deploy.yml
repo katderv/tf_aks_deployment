@@ -31,6 +31,7 @@ jobs:
       run: |
         resource_group_name=$(terraform output resource_group_name)
         aks_cluster_name=$(terraform output aks_cluster_name)
+        echo $resource_group_name 
   
     - name: Enable Routing Add-on with NGINX
       run: |

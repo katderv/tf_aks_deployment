@@ -42,19 +42,16 @@ jobs:
       run: |
         az aks get-credentials --resource-group $resource_group_name --name $aks_cluster_name
 
-    - name: Set Up Docker Build Variables
-      run: echo "IMAGE_TAG=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
-
     - name: Log in to Azure Container Registry
       run: |
         az acr login -n $container_registry_name
 
     - name: Build Docker Image
-      run: docker build -t $container_registry_name.azurecr.io/my-app:${{ env.IMAGE_TAG }} .
+      run: docker build -t $container_registry_name.azurecr.io/my-app .
 
     - name: Push Docker Image to ACR
       run: |
-        docker push $container_registry_name.azurecr.io/my-app:${{ env.IMAGE_TAG }}
+        docker push $container_registry_name.azurecr.io/my-app
       
     - name: Deploy to Kubernetes
       run: |

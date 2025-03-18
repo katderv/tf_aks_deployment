@@ -14,6 +14,6 @@ RUN chown -R appuser:appgroup /app
 
 USER appuser
 
-EXPOSE 80
+EXPOSE 8080
 
-CMD ["uvicorn", "src.app:app", "--host", "0.0.0.0", "--port", "80"]
+CMD ["uvicorn", "src.app:app", "--host", "0.0.0.0", "--port", "8080"]

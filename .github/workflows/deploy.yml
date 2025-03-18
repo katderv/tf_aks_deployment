@@ -30,18 +30,18 @@ jobs:
     - name: Save outputs in env variables
       run: |
         cd tf
-        resource_group_name=$(terraform output resource_group_name)
-        aks_cluster_name=$(terraform output aks_cluster_name)
+        echo "resource_group_name=$(terraform output -raw resource_group_name)" >> $GITHUB_ENV
+        echo "aks_cluster_name=$(terraform output -raw aks_cluster_name)" >> $GITHUB_ENV
         echo $resource_group_name
         echo $aks_cluster_name
   
     - name: Enable Routing Add-on with NGINX
       run: |
-        az aks approuting enable --resource-group $(echo $resource_group_name) --name $(echo $aks_cluster_name)
+        az aks approuting enable --resource-group $resource_group_name --name $aks_cluster_name
     
     - name: Set up kubectl for AKS
       run: |
-        az aks get-credentials --resource-group $(echo $resource_group_name) --name $(echo $resource_group_name)
+        az aks get-credentials --resource-group $resource_group_name --name $echo $resource_group_name
 
     - name: Run kubectl command
       run: |

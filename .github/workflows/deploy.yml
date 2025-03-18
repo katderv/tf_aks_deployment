@@ -14,6 +14,7 @@ jobs:
       uses: hashicorp/setup-terraform@v1
       with:
         terraform_version: 1.9.5
+        terraform_wrapper: false
 
     - name: Login to Azure
       uses: azure/login@v1
@@ -25,14 +26,19 @@ jobs:
 
     - name: Terraform Apply
       run: terraform -chdir=./tf apply -auto-approve
+
+    - name: Save outputs in env variables
+      run: |
+        resource_group_name=$(terraform output resource_group_name)
+        aks_cluster_name=$(terraform output aks_cluster_name)
   
     - name: Enable Routing Add-on with NGINX
       run: |
-        az aks approuting enable --resource-group "$(terraform output -raw resource_group_name)" --name "$(terraform output -raw aks_cluster_name)"
+        az aks approuting enable --resource-group $resource_group_name --name $aks_cluster_name
     
     - name: Set up kubectl for AKS
       run: |
-        az aks get-credentials --resource-group "$(terraform output -raw resource_group_name)" --name "$(terraform output -raw aks_cluster_name)"
+        az aks get-credentials --resource-group $resource_group_name --name $aks_cluster_name
 
     - name: Run kubectl command
       run: |

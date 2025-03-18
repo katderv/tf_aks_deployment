@@ -9,6 +9,10 @@ terraform {
       source  = "hashicorp/random"
       version = "3.3.2"
     }
+    azapi = {
+      source  = "azure/azapi"
+      version = ">= 0.7.0"  # Ensure this version is compatible with your setup
+    }
   }
 }
 
@@ -21,3 +25,8 @@ provider "azurerm" {
 }
 
 provider "random" {}
+
+provider "azapi" {
+  use_oidc = true    
+  use_msi = false     
+}

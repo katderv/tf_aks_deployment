@@ -32,8 +32,7 @@ jobs:
         cd tf
         echo "resource_group_name=$(terraform output -raw resource_group_name)" >> $GITHUB_ENV
         echo "aks_cluster_name=$(terraform output -raw aks_cluster_name)" >> $GITHUB_ENV
-        echo $resource_group_name
-        echo $aks_cluster_name
+        echo "container_registry_name=$(terraform output -raw container_registry_name)" >> $GITHUB_ENV
   
     - name: Enable Routing Add-on with NGINX
       run: |
@@ -41,8 +40,23 @@ jobs:
     
     - name: Set up kubectl for AKS
       run: |
-        az aks get-credentials --resource-group $resource_group_name --name $echo $resource_group_name
+        az aks get-credentials --resource-group $resource_group_name --name $aks_cluster_name
 
-    - name: Run kubectl command
+    - name: Set Up Docker Build Variables
+      run: echo "IMAGE_TAG=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
+
+    - name: Log in to Azure Container Registry
       run: |
-        kubectl get pods --namespace default
+        az acr login -n $container_registry_name
+
+    - name: Build Docker Image
+      run: docker build -t $container_registry_name.azurecr.io/my-app:${{ env.IMAGE_TAG }} .
+
+    - name: Push Docker Image to ACR
+      run: |
+        docker push $container_registry_name.azurecr.io/my-app:${{ env.IMAGE_TAG }}
+      
+    - name: Deploy to Kubernetes
+      run: |
+        kubectl apply -f deployment.yml
+        kubectl apply -f ingress.yaml

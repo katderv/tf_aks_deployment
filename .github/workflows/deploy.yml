@@ -55,7 +55,7 @@ jobs:
       
     - name: Deploy to Kubernetes
       run: |
-        kubectl apply -f deployment.yaml
+        APP_ENV=$container_registry_name envsubst < deployment.yaml | kubectl apply -f -
         kubectl apply -f ingress.yaml
 
     - name: Get IP of Ingress

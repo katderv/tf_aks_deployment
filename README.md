@@ -1,7 +1,9 @@
-# Project Name
+# AKS Deployment with Terraform
 
 ## Overview
 This project is deployed on Azure. It creates a Virtual Network (VNet), an Azure Kubernetes Service (AKS) cluster with a managed NGINX ingress controller, and an Azure Container Registry (ACR) using Terraform. It then deploys a basic FastAPI backend with a single endpoint you can test.
+
+![alt text](image.png)
 
 ## Prerequisites
 

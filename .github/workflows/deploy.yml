@@ -43,6 +43,15 @@ jobs:
 
         az storage container create --name $CONTAINER_NAME --account-name $STORAGE_ACCOUNT --account-key $ACCOUNT_KEY
 
+
+        echo "STORAGE_ACCOUNT=$STORAGE_ACCOUNT" >> $GITHUB_ENV
+        echo "RESOURCE_GROUP=$RESOURCE_GROUP" >> $GITHUB_ENV
+        echo "CONTAINER_NAME=$CONTAINER_NAME" >> $GITHUB_ENV
+        echo "ACCOUNT_KEY=$ACCOUNT_KEY" >> $GITHUB_ENV
+                
+
+    - name: Terraform Init
+      run: |
         terraform -chdir=./tf init \
           -backend-config="storage_account_name=$STORAGE_ACCOUNT" \
           -backend-config="container_name=$CONTAINER_NAME" \

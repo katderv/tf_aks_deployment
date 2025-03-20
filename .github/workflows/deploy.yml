@@ -25,13 +25,14 @@ jobs:
       run: chmod +x ./tf/be_create.sh
 
     - name: Run Backend Setup Script
-      run: |
-          ./tf/be_create.sh
-          echo "STORAGE_ACCOUNT=$STORAGE_ACCOUNT" >> $GITHUB_ENV
-          echo "RESOURCE_GROUP=$RESOURCE_GROUP" >> $GITHUB_ENV
-          echo "CONTAINER_NAME=$CONTAINER_NAME" >> $GITHUB_ENV
-          echo "ACCOUNT_KEY=$ACCOUNT_KEY" >> $GITHUB_ENV
-          echo $STORAGE_ACCOUNT
+      run: ./tf/be_create.sh
+      shell: bash
+      env:
+        INPUT_TEST_INPUT: ${{ inputs.test_input }}
+        STORAGE_ACCOUNT: ${{ STORAGE_ACCOUNT }}
+        RESOURCE_GROUP: ${{ RESOURCE_GROUP }}
+        CONTAINER_NAME: ${{ CONTAINER_NAME }}
+        ACCOUNT_KEY: ${{ ACCOUNT_KEY }}
 
     - name: Terraform Init
       run: |

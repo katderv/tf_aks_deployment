@@ -13,7 +13,7 @@ ACCOUNT_KEY=$(az storage account keys list --resource-group $RESOURCE_GROUP --ac
 
 az storage container create --name $CONTAINER_NAME --account-name $STORAGE_ACCOUNT --account-key $ACCOUNT_KEY
 
-export STORAGE_ACCOUNT
-export RESOURCE_GROUP
-export CONTAINER_NAME
-export ACCOUNT_KEY
+echo $STORAGE_ACCOUNT
+echo $RESOURCE_GROUP
+echo $CONTAINER_NAME
+echo $ACCOUNT_KEY

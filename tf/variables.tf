@@ -22,3 +22,7 @@ variable "container_name" {
 variable "access_key" {
   type        = string
 }
+
+variable "key" {
+  type        = string
+}

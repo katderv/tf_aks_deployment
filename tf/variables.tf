@@ -12,3 +12,7 @@ variable "resource_group_name" {
   type    = string
   default = null
 }
+
+variable "storage_account_name" {}
+variable "container_name" {}
+variable "access_key" {}

@@ -32,7 +32,7 @@ jobs:
           terraform -chdir=./tf init \
             -backend-config="storage_account_name=${{ env.STORAGE_ACCOUNT }}" \
             -backend-config="container_name=${{ env.CONTAINER_NAME }}" \
-            -backend-config="resource_group_name=${{ env.RESOURCE_GROUP }}" \
+            -backend-config="be_resource_group_name=${{ env.BE_RESOURCE_GROUP }}" \
             -backend-config="access_key=${{ env.ACCOUNT_KEY }}"
 
     - name: Terraform Validate

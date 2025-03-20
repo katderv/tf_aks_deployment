@@ -2,14 +2,14 @@ terraform {
   backend "azurerm" {
     storage_account_name = var.storage_account_name
     container_name       = var.container_name
-    resource_group_name  = var.resource_group_name
+    be_resource_group_name  = var.resource_group_name
     access_key           = var.access_key
   }
 }
 
 variable "storage_account_name" {}
 variable "container_name" {}
-variable "resource_group_name" {}
+variable "be_resource_group_name" {}
 variable "access_key" {}
 
 resource "random_id" "prefix" {

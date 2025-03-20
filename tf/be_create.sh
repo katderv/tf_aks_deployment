@@ -3,7 +3,7 @@
 RESOURCE_GROUP="tf-backend-rg"
 STORAGE_ACCOUNT="tfbackend$RANDOM"
 CONTAINER_NAME="tfstate"
-LOCATION="eagermanywestcentralstus"
+LOCATION="germanywestcentral"
 
 az group create --name $RESOURCE_GROUP --location $LOCATION
 

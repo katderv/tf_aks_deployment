@@ -25,8 +25,7 @@ jobs:
       run: chmod +x ./tf/be_create.sh
 
     - name: Run Backend Setup Script
-      run: source be_create.sh 
-      shell: bash
+      run: ./tf/be_create.sh
 
     - name: Terraform Init
       run: |

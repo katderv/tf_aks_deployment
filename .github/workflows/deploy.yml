@@ -31,6 +31,7 @@ jobs:
           echo "RESOURCE_GROUP=$RESOURCE_GROUP" >> $GITHUB_ENV
           echo "CONTAINER_NAME=$CONTAINER_NAME" >> $GITHUB_ENV
           echo "ACCOUNT_KEY=$ACCOUNT_KEY" >> $GITHUB_ENV
+          echo $STORAGE_ACCOUNT
 
     - name: Terraform Init
       run: |

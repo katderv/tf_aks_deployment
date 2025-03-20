@@ -24,6 +24,12 @@ jobs:
     - name: Terraform Init
       run: terraform -chdir=./tf init
 
+    - name: Terraform Validate
+      run: terraform -chdir=./tf validate
+
+    - name: Terraform Plan
+      run: terraform -chdir=./tf plan
+
     - name: Terraform Apply
       run: terraform -chdir=./tf apply -auto-approve
 
@@ -57,6 +63,7 @@ jobs:
       run: |
         ACR_NAME=$container_registry_name envsubst < deployment.yaml | kubectl apply -f -
         kubectl apply -f ingress.yaml
+        kubectl rollout status deployment my-app || kubectl rollout undo deployment my-app
 
     - name: Get IP of Ingress
       run: |

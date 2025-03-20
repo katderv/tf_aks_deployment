@@ -22,7 +22,7 @@ jobs:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
     
     - name: Set Executable Permission
-      run: chmod +x tf/create-tf-backend.sh
+      run: chmod +x ./tf/create-tf-backend.sh
 
     - name: Run Backend Setup Script
       run: ./create-tf-backend.sh

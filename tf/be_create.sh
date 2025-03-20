@@ -13,7 +13,8 @@ ACCOUNT_KEY=$(az storage account keys list --resource-group $RESOURCE_GROUP --ac
 
 az storage container create --name $CONTAINER_NAME --account-name $STORAGE_ACCOUNT --account-key $ACCOUNT_KEY
 
-echo $STORAGE_ACCOUNT
-echo $RESOURCE_GROUP
-echo $CONTAINER_NAME
-echo $ACCOUNT_KEY
+
+echo "STORAGE_ACCOUNT=$STORAGE_ACCOUNT" >> $GITHUB_ENV
+echo "RESOURCE_GROUP=$RESOURCE_GROUP" >> $GITHUB_ENV
+echo "CONTAINER_NAME=$CONTAINER_NAME" >> $GITHUB_ENV
+echo "ACCOUNT_KEY=$ACCOUNT_KEY" >> $GITHUB_ENV

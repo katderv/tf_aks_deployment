@@ -29,11 +29,16 @@ jobs:
 
     - name: Terraform Init
       run: |
-          terraform -chdir=./tf init \
-            -backend-config="storage_account_name=$STORAGE_ACCOUNT" \
-            -backend-config="container_name=$CONTAINER_NAME" \
-            -backend-config="resource_group_name=$RESOURCE_GROUP" \
-            -backend-config="access_key=$ACCOUNT_KEY"
+        terraform -chdir=./tf init \
+          -backend-config="storage_account_name=$STORAGE_ACCOUNT" \
+          -backend-config="container_name=$CONTAINER_NAME" \
+          -backend-config="resource_group_name=$RESOURCE_GROUP" \
+          -backend-config="access_key=$ACCOUNT_KEY"
+      env:
+        STORAGE_ACCOUNT: ${{ env.STORAGE_ACCOUNT }}
+        CONTAINER_NAME: ${{ env.CONTAINER_NAME }}
+        RESOURCE_GROUP: ${{ env.RESOURCE_GROUP }}
+        ACCOUNT_KEY: ${{ env.ACCOUNT_KEY }}
 
     - name: Terraform Validate
       run: terraform -chdir=./tf validate

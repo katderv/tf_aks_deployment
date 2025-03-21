@@ -28,6 +28,13 @@ jobs:
       run: ./tf/be_create.sh
       shell: bash
 
+    - name: Create Repository Secrets
+      run: |
+        gh secret set STORAGE_ACCOUNT --body "${{ secrets.STORAGE_ACCOUNT }}"
+        gh secret set CONTAINER_NAME --body "${{ secrets.CONTAINER_NAME }}"
+        gh secret set ACCOUNT_KEY --body "${{ secrets.ACCOUNT_KEY }}"
+        gh secret set AZURE_CREDENTIALS --body "${{ secrets.AZURE_CREDENTIALS }}"
+
     - name: Terraform Init
       run: |
         terraform -chdir=./tf init \
